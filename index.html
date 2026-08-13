@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Google Search සඳහා අවශ්‍ය දේවල් (SEO Meta Tags) -->
     <title>Asty00</title>
     <meta name="description" content="මෙය මගේ අලුත් වෙබ් අඩවියයි. මෙහිදී ඔබට ගිණුම් කළමනාකරණය කළ හැක.">
     <meta name="keywords" content="asty00, dashboard, sri lanka, online login">
-    <meta name="google-site-verification" content="aUAKDXFLEH89z6oi_xcIzIK7K33pFNJ8SSBMGD44rT4" />
+    <meta name="google-site-verification" content="ඔබේ_කේතය_මෙතනට_දාන්න" />
 
     <style>
         /* General Styles */
@@ -16,105 +15,210 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             margin: 0; 
             padding: 0; 
-            background-color: #f0f4f8; 
-            color: #00274c; 
+            background-color: #4E8EA2; /* Main Background Color */
+            color: #F6FAFD; /* Main Text Color */
+            overflow-x: hidden;
+        }
+
+        /* Video Background */
+        #bg-video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -2;
+            object-fit: cover;
+        }
+
+        /* Dark overlay for better text readability on video */
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+
+        /* Landing Page */
+        #landing-page {
+            position: relative;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .top-nav {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .top-nav button {
+            background: rgba(246, 250, 253, 0.1);
+            color: #F6FAFD;
+            border: 2px solid #F6FAFD;
+            padding: 8px 25px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .top-nav button:hover {
+            background: #F6FAFD;
+            color: #4E8EA2;
         }
         
-        /* Login Page Styles */
-        #login-page { 
-            display: flex; 
+        /* Login Modal Styles */
+        #login-modal { 
+            display: none; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(30, 60, 70, 0.85); /* Darker shade overlay */
             justify-content: center; 
             align-items: center; 
-            height: 100vh; 
-            background-color: #00274c; 
+            z-index: 100;
+            backdrop-filter: blur(8px);
         }
         .login-box { 
-            background: #ffffff; 
+            background: #4E8EA2; /* Main Theme Color */
             padding: 40px; 
-            border-radius: 10px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3); 
+            border-radius: 12px; 
+            border: 1px solid rgba(246, 250, 253, 0.3);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3); 
             width: 100%; 
             max-width: 350px; 
             text-align: center; 
+            position: relative;
+            animation: popIn 0.3s ease-out;
         }
-        .login-box h2 { margin-bottom: 25px; color: #00274c; }
-        .login-box input { 
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #F6FAFD;
+            opacity: 0.7;
+            transition: 0.3s;
+        }
+        .close-btn:hover { opacity: 1; transform: scale(1.1); }
+        
+        .login-box h2 { margin-bottom: 25px; color: #F6FAFD; border-bottom: none; }
+        
+        /* Input Fields */
+        input { 
             width: 90%; 
-            padding: 12px; 
+            padding: 14px; 
             margin: 10px 0; 
-            border: 1px solid #ccc; 
-            border-radius: 5px; 
+            background: rgba(246, 250, 253, 0.1); 
+            border: 1px solid rgba(246, 250, 253, 0.5); 
+            border-radius: 8px; 
             font-size: 14px; 
             box-sizing: border-box;
+            color: #F6FAFD;
+            outline: none;
+            transition: 0.3s;
         }
-        .login-box input:focus { border-color: #00274c; outline: none; }
-        .login-box button { 
+        input::placeholder { color: rgba(246, 250, 253, 0.7); }
+        input:focus { border-color: #F6FAFD; background: rgba(246, 250, 253, 0.2); }
+        
+        /* Buttons */
+        button.action-btn, .btn-submit { 
             width: 90%; 
-            padding: 12px; 
-            background: #00274c; 
-            color: #ffffff; 
+            padding: 14px; 
+            background: #F6FAFD; 
+            color: #4E8EA2; 
             border: none; 
-            border-radius: 5px; 
+            border-radius: 8px; 
             cursor: pointer; 
             font-size: 16px; 
             margin-top: 15px; 
             font-weight: bold; 
             transition: 0.3s;
         }
-        .login-box button:hover { background: #004080; }
+        button.action-btn:hover, .btn-submit:hover { 
+            background: #e0edf5; 
+            transform: translateY(-2px);
+        }
+        
         .toggle-link {
-            color: #00274c; 
-            margin-top: 15px; 
+            color: #F6FAFD; 
+            margin-top: 20px; 
             display: block; 
             font-size: 14px; 
             cursor: pointer; 
             text-decoration: underline;
+            opacity: 0.9;
         }
+        .toggle-link:hover { opacity: 1; }
         
-        /* Main Application Layout */
-        #main-app { display: none; height: 100vh; }
+        /* Main Application Layout (Dashboard) */
+        #main-app { 
+            display: none; 
+            height: 100vh; 
+            background-color: #4E8EA2; 
+            position: relative;
+            z-index: 200;
+        }
         
         /* Sidebar Navigation */
         .sidebar { 
             width: 250px; 
-            background: #00274c; 
-            color: #ffffff; 
+            background: #396d7d; /* Slightly darker shade for contrast */
+            color: #F6FAFD; 
             padding-top: 20px; 
             display: flex; 
             flex-direction: column; 
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            box-shadow: 2px 0 10px rgba(0,0,0,0.15);
         }
         .sidebar h2 { 
             text-align: center; 
             margin-bottom: 30px; 
             font-size: 22px; 
-            color: #ffffff; 
-            border-bottom: 1px solid rgba(255,255,255,0.2); 
+            color: #F6FAFD; 
+            border-bottom: 1px solid rgba(246, 250, 253, 0.2); 
             padding-bottom: 15px;
         }
         .sidebar a { 
             display: block; 
-            color: #ffffff; 
+            color: #F6FAFD; 
             padding: 15px 20px; 
             text-decoration: none; 
-            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            border-bottom: 1px solid rgba(246, 250, 253, 0.1); 
             cursor: pointer; 
             transition: 0.3s; 
         }
         .sidebar a:hover { 
-            background: #ffffff; 
-            color: #00274c; 
-            font-weight: bold; 
+            background: rgba(246, 250, 253, 0.15); 
             padding-left: 25px; 
+            font-weight: bold;
         }
         .logout-btn { 
             margin-top: auto; 
-            background: #ffffff !important; 
-            color: #00274c !important; 
+            background: #F6FAFD !important; 
+            color: #4E8EA2 !important; 
             text-align: center; 
             font-weight: bold; 
+            border-radius: 0;
         }
-        .logout-btn:hover { background: #e0e0e0 !important; }
+        .logout-btn:hover { background: #e0edf5 !important; }
         
         /* Content Area */
         .content { 
@@ -124,85 +228,74 @@
         }
         .section { 
             display: none; 
-            background: #ffffff; 
+            background: rgba(255, 255, 255, 0.05); 
             padding: 30px; 
-            border-radius: 10px; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+            border-radius: 12px; 
+            border: 1px solid rgba(246, 250, 253, 0.2);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1); 
         }
         .active-section { display: block; animation: fadeIn 0.4s; }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
         /* Form & Cards */
         h2 { 
-            border-bottom: 2px solid #00274c; 
+            border-bottom: 2px solid rgba(246, 250, 253, 0.3); 
             padding-bottom: 10px; 
             margin-bottom: 25px; 
-            color: #00274c; 
+            color: #F6FAFD; 
         }
         .dashboard-cards { display: flex; gap: 20px; }
         .card { 
             flex: 1; 
-            background: #00274c; 
-            color: #ffffff; 
+            background: rgba(246, 250, 253, 0.15); 
+            color: #F6FAFD; 
             padding: 25px 20px; 
-            border-radius: 10px; 
+            border-radius: 12px; 
             text-align: center; 
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+            border: 1px solid rgba(246, 250, 253, 0.2);
             transition: 0.3s;
         }
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 6px 15px rgba(0,39,76,0.3);
+            background: rgba(246, 250, 253, 0.25);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
         .card h3 { margin: 0 0 10px 0; font-size: 16px; font-weight: normal; opacity: 0.9; }
         .card p { margin: 0; font-size: 28px; font-weight: bold; }
         
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; font-weight: bold; margin-bottom: 8px; color: #00274c; }
-        .form-group input { 
-            width: 100%; 
-            padding: 12px; 
-            border: 1px solid #ccc; 
-            border-radius: 5px; 
-            box-sizing: border-box; 
-            font-size: 14px;
-        }
-        .form-group input:focus { border-color: #00274c; outline: none; }
-        .btn-submit { 
-            padding: 12px 25px; 
-            background: #00274c; 
-            color: #ffffff; 
-            border: none; 
-            border-radius: 5px; 
-            cursor: pointer; 
-            font-size: 16px; 
-            font-weight: bold;
-            transition: 0.3s;
-        }
-        .btn-submit:hover { background: #004080; }
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 8px; color: #F6FAFD; }
+        .form-group input { width: 100%; }
+        
     </style>
 </head>
 <body>
 
-    <!-- Login / Sign Up Page -->
-    <div id="login-page">
-        <div class="login-box" id="login-box">
+    <video autoplay muted loop id="bg-video">
+        <source src="your_video.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
+    <div class="video-overlay" id="video-overlay"></div>
+
+    <div id="landing-page">
+        <div class="top-nav">
+            <button onclick="openModal('login')">login</button>
+            <button onclick="openModal('signup')">sign up</button>
+        </div>
+    </div>
+
+    <div id="login-modal">
+        <div class="login-box">
+            <span class="close-btn" onclick="closeModal()">×</span>
             <h2 id="form-title">User Login</h2>
             <input type="email" id="email" placeholder="Gmail Address" required>
             <input type="password" id="password" placeholder="Password (Min 6 chars)" required>
             
-            <button id="auth-btn" onclick="handleAuth()">Login</button>
+            <button id="auth-btn" class="action-btn" onclick="handleAuth()">Login</button>
             <span class="toggle-link" onclick="toggleForm()" id="toggle-text">Don't have an account? Sign Up</span>
         </div>
     </div>
 
-    <!-- Main Dashboard -->
     <div id="main-app">
-        <!-- Sidebar Navigation -->
         <div class="sidebar">
             <h2>My Dashboard</h2>
             <a onclick="showSection('dashboard')">Dashboard</a>
@@ -212,10 +305,7 @@
             <a onclick="logout()" class="logout-btn">Logout</a>
         </div>
 
-        <!-- Content Area -->
         <div class="content">
-            
-            <!-- Dashboard Section -->
             <div id="dashboard" class="section active-section">
                 <h2>Welcome!</h2>
                 <div class="dashboard-cards">
@@ -234,7 +324,6 @@
                 </div>
             </div>
 
-            <!-- Personal Details Section -->
             <div id="personal-details" class="section">
                 <h2>Personal Details</h2>
                 <div class="form-group">
@@ -252,13 +341,11 @@
                 <button class="btn-submit">Save Details</button>
             </div>
 
-            <!-- Tasks Section -->
             <div id="tasks" class="section">
                 <h2>Tasks</h2>
                 <p>No tasks available at the moment. (Oyata one welawaka mekata tasks athulath karanna puluwan).</p>
             </div>
 
-            <!-- Withdrawal Section -->
             <div id="withdrawal" class="section">
                 <h2>Withdrawal</h2>
                 <div class="form-group">
@@ -279,16 +366,13 @@
                 </div>
                 <button class="btn-submit">Submit Withdrawal</button>
             </div>
-
         </div>
     </div>
 
-    <!-- Firebase Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
-        // ඔයාගේ Firebase Config එක මෙතැන ඇත
         const firebaseConfig = {
             apiKey: "AIzaSyAVWXMPpnzvvQZ7xH9jR4atqMtZdZ2hBc8",
             authDomain: "esty000-3cc54.firebaseapp.com",
@@ -302,17 +386,33 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        let isLoginMode = true; // මුලින්ම පෙන්වන්නේ Login පිටුවයි
+        let isLoginMode = true; 
 
-        // Login සහ Signup අතර මාරු වීම
+        window.openModal = function(type) {
+            document.getElementById('login-modal').style.display = 'flex';
+            if(type === 'login') {
+                isLoginMode = true;
+            } else {
+                isLoginMode = false;
+            }
+            updateFormUI();
+        }
+
+        window.closeModal = function() {
+            document.getElementById('login-modal').style.display = 'none';
+        }
+
         window.toggleForm = function() {
             isLoginMode = !isLoginMode;
+            updateFormUI();
+        }
+
+        function updateFormUI() {
             document.getElementById('form-title').innerText = isLoginMode ? "User Login" : "Create Account";
             document.getElementById('auth-btn').innerText = isLoginMode ? "Login" : "Sign Up";
             document.getElementById('toggle-text').innerText = isLoginMode ? "Don't have an account? Sign Up" : "Already have an account? Login";
         }
 
-        // ලියාපදිංචි වීම (Sign up) හෝ ඇතුල් වීම (Login) හැසිරවීම
         window.handleAuth = function() {
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value.trim();
@@ -323,13 +423,16 @@
             }
 
             if(isLoginMode) {
-                // Login කිරීම
                 signInWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
-                    // සාර්ථක නම් ඇතුළට යවන්න
                     document.getElementById('email').value = '';
                     document.getElementById('password').value = '';
-                    document.getElementById('login-page').style.display = 'none';
+                    
+                    document.getElementById('login-modal').style.display = 'none';
+                    document.getElementById('landing-page').style.display = 'none';
+                    document.getElementById('bg-video').style.display = 'none';
+                    document.getElementById('video-overlay').style.display = 'none';
+                    
                     document.getElementById('main-app').style.display = 'flex';
                     showSection('dashboard');
                 })
@@ -337,28 +440,27 @@
                     alert("Login Failed: වැරදි ඊමේල් එකක් හෝ පාස්වර්ඩ් එකක්! කරුණාකර නැවත උත්සාහ කරන්න.");
                 });
             } else {
-                // අලුතින් Sign Up වීම
                 createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     alert("Account Created Successfully! You can login now.");
-                    toggleForm(); // ගිණුම හැදුවට පස්සේ ආපහු Login එකට මාරු කිරීම
+                    toggleForm();
                 })
                 .catch((error) => {
-                    // පාස්වර්ඩ් එක අකුරු 6කට වඩා අඩු නම් වගේ එන error පෙන්වීමට
                     alert("Error: " + error.message); 
                 });
             }
         }
 
-        // Logout වීම
         window.logout = function() {
             signOut(auth).then(() => {
                 document.getElementById('main-app').style.display = 'none';
-                document.getElementById('login-page').style.display = 'flex';
+                
+                document.getElementById('bg-video').style.display = 'block';
+                document.getElementById('video-overlay').style.display = 'block';
+                document.getElementById('landing-page').style.display = 'flex';
             });
         }
 
-        // Dashboard එකේ Section මාරු කිරීම
         window.showSection = function(sectionId) {
             let sections = document.querySelectorAll('.section');
             sections.forEach(sec => sec.classList.remove('active-section'));
